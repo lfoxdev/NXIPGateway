@@ -3,7 +3,7 @@
 A DIY module based on ESP32 that connects to the bus of NX series alarm panels (NetworX/Interlogix/Caddx...) and acts as a gateway between panel and LAN.
 Connection is made directly to the panel's keypad&expansion bus with a simple circuit, NX-584 card or built-in RS232 are not required!
 
-<img width="1024" height="768" alt="NXIPGW" src="https://github.com/user-attachments/assets/489383a2-5efe-4988-bf5b-43e31587b3d5" />
+<img width="600" height="450" alt="NXIPGW" src="https://github.com/user-attachments/assets/489383a2-5efe-4988-bf5b-43e31587b3d5" />
 
 # Features
 
@@ -25,15 +25,21 @@ All commands were obtained from the NX-6v2 panel (version 1.13), but are likely 
 # Required hardware
 
  - ESP32 with minimum of 4 MB flash
-	 > [!TIP]
-	 > WT32-ETH01 module with Ethernet is recommended. Modules with Wi-Fi only should also be supported, but may not be sufficiently tested.
-	> [!NOTE]
-	> ESP8266 will not be supported as the code requires more memory and uses FreeRTOS capabilities
+	- WT32-ETH01 module with Ethernet is recommended. Modules with Wi-Fi only should also be supported, but may not be sufficiently tested.
+> [!NOTE]
+> ESP8266 will not be supported as the code requires more memory and uses FreeRTOS capabilities
 
  - [Simple circuit for coupling NetworX bus with UART](Doc/Interface.pdf)
  - DC/DC step down converter to power up module from panel POS terminal
-	 > [!TIP]
-	 > It is recommended to power ESP module directly with 3.3V rather than 5V due to low load capacity of the onboard LDO.
+	- It is recommended to power ESP module directly with 3.3V rather than 5V due to low load capacity of the onboard LDO.
+
+# Screenshots
+
+<img width="300" height="162" alt="System status _ NetworX IP Gateway" src="https://github.com/user-attachments/assets/00093e60-c4f7-4794-a864-1c56fb181560" />
+<img width="300" height="162" alt="Partitions _ NetworX IP Gateway" src="https://github.com/user-attachments/assets/2f5eaeb1-615a-449d-98c9-47b1bef59853" />
+<img width="300" height="162" alt="Zones _ NetworX IP Gateway" src="https://github.com/user-attachments/assets/8b199323-018e-4893-9eab-18aba0c49198" />
+<img width="300" height="162" alt="Event log _ NetworX IP Gateway" src="https://github.com/user-attachments/assets/c2890a48-4ea1-461d-82d0-0362204f9bc5" />
+<img width="300" height="162" alt="Serial _ NetworX IP Gateway" src="https://github.com/user-attachments/assets/3d21b9f6-3946-478e-8ec6-007e944ca150" />
 
 # Firmware
 The firmware is provided as a source code for the PlatformIO environment, as well as in the form of binary files (WT32-ETH01 version with Ethernet support and general ESP32 version for modules without Ethernet).
@@ -72,8 +78,10 @@ The firmware is provided as a source code for the PlatformIO environment, as wel
 - WiFi version
 	1. Connect to access point `NX Gateway`
 	2. Go to http://192.168.4.1 (or open the suggested web page). Default credentials are admin/caddx.
-	> [!NOTE]
-	> Currently, Ethernet always uses static IP defined in WebUI, and WiFi always uses DHCP
+> [!NOTE]
+> Currently, Ethernet always uses static IP defined in WebUI, and WiFi always uses DHCP
+
+Then enroll module by entering and exiting panel programming mode (press *8 - 9713 - Exit on the keypad, where 9713 is your programming code). If you are using an original NX-590E module or another device with network address 79, you can change the address of this module via the WebUI. You can check if module is enrolled sucessfully on the Serial page of the WebUI. If module is not enrolled, it can only listen to panel messages, but can't send any requests or commands itself.
 
 ## Updating
 
